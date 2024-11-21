@@ -1,0 +1,248 @@
+
+/* Hide scrollbar */
+body::-webkit-scrollbar {
+    display: none;
+  }
+body{
+background: rgb(9,6,55);
+background: linear-gradient(90deg, rgba(9,6,55,1) 22%, rgba(9,9,121,1) 100%, rgba(0,212,255,1) 100%);
+}
+.name{
+    color: whitesmoke;
+}
+#sampat{
+    color: white !important;
+}
+  
+  /* Global app container */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+  
+  /* Home container */
+  .home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+  }
+  
+  figure {
+    margin: 0;
+  }
+  
+  .social-links a {
+    font-size: 1.1rem;
+    margin: 0 10px;
+  }
+  
+  /* Navbar sticky */
+  #navbar {
+    position: fixed;
+    z-index: 9999;
+  }
+  
+  /* Education section */
+  #education {
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  /* Card styling */
+  .card-title {
+    font-weight: bold;
+  }
+  .card-bdy{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card-subtitle {
+    color: #6c757d;
+  }
+  
+  .card-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  .card {
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Skills section */
+ 
+  
+  /* Section titles */
+  .section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+  }
+  
+  /* Skill card */
+  .skill-card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .skill-icon {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .skill-card .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .skill-card .card-text {
+    font-size: 1.1rem;
+    color: #555;
+    flex-grow: 1;
+  }
+  
+  .skill-card ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .skill-card ul li {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    list-style: none;
+  }
+  
+  /* Layout for skills row */
+  .skill-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .skill-row .col-md-5 {
+    flex: 1 1 45%;
+    max-width: 45%;
+    min-width: 280px;
+    margin-bottom: 30px;
+  }
+  
+  /* Project section */
+  .project-card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .project-icon {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .project-card .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .project-card .card-text {
+    font-size: 1.1rem;
+    color: #555;
+    flex-grow: 1;
+  }
+  
+  .project-links {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  .project-links a {
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .project-links a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Layout for projects row */
+  .project-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .project-row .col-md-5 {
+    flex: 1 1 45%;
+    max-width: 45%;
+    min-width: 280px;
+    margin-bottom: 30px;
+  }
+  
+  /* Responsiveness for smaller screens */
+  @media (max-width: 768px) {
+    .skill-row .col-md-5,
+    .project-row .col-md-5 {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+    .social-links a {
+        font-size: 0.8rem;
+        margin: 0 10px;
+      }
+      .card-bdy{
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+  }
+  
