@@ -97,6 +97,7 @@ function Projects() {
               <div className="project-links">
                 <a
                   href="https://github.com/sampat646/Mini-projects.git"
+                  
                   target="_blank"
                   rel="noopener noreferrer"
                 >
