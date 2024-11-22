@@ -7,7 +7,7 @@ import { SiCplusplus, SiMysql, SiPostgresql } from "react-icons/si";
 function Skills() {
   return (
     <Container className="my-5" id="skills">
-      <h2 className="text-center mb-4 section-title name">My Skills</h2>
+      <h2 className="text-center mb-4 section-title name">Skills</h2>
 
       {/* Skills Row */}
       <Row className="skill-row mb-4 justify-content-center">
