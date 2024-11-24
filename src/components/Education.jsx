@@ -21,7 +21,7 @@ function Education() {
           <Col sm={12} md={4} lg={3} className="mb-4">
             <Card className="text-center">
               <Card.Body className='card-bdy'>
-                <Card.Title>Sai niketan PU science colloge mudhol </Card.Title>
+                <Card.Title>Sai niketan PU science college mudhol </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">PUC in PCME</Card.Subtitle>
                 <Card.Text>Percentile: 71.2%</Card.Text>
               </Card.Body>

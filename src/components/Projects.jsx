@@ -96,7 +96,7 @@ function Projects() {
               </Card.Text>
               <div className="project-links">
                 <a
-                  href="https://github.com/sampat646/Mini-projects.git"
+                  href="https://github.com/sampat646/Blog_website.git"
                   
                   target="_blank"
                   rel="noopener noreferrer"
