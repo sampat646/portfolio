@@ -1,1031 +1,670 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-5BB8W2X");
-    </script>
-    <!-- End Google Tag Manager -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sampat K — Microsoft Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050810;
+      --surface: #0d1220;
+      --card: #111827;
+      --border: rgba(255,255,255,0.07);
+      --accent: #00e5ff;
+      --accent2: #7c3aed;
+      --accent3: #f59e0b;
+      --text: #e8ecf4;
+      --muted: #6b7280;
+      --glow: rgba(0,229,255,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
 
-    <title>Personal Portfolio</title>
-    <meta content="" name="descriptison" />
-    <meta content="" name="keywords" />
+    /* Cursor */
+    #cursor {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transition: transform 0.15s ease;
+      mix-blend-mode: screen;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(0,229,255,0.5);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1);
+    }
 
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-      rel="stylesheet"
-    />
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 1000; opacity: 0.4;
+    }
 
-    <!-- Vendor CSS Files -->
-    <link
-      href="assets/vendor/bootstrap/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet" />
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
-    <link
-      href="assets/vendor/owl.carousel/assets/owl.carousel.min.css"
-      rel="stylesheet"
-    />
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-    <link href="assets/vendor/venobox/venobox.css" rel="stylesheet" />
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5,8,16,0.85);
+      backdrop-filter: blur(20px);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+      letter-spacing: -0.02em; color: var(--text); text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent);
+      padding: 0.5rem 1.2rem; text-decoration: none; transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); }
 
-    <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet" />
+    /* Hero */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative; overflow: hidden;
+    }
+    .grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3rem 4rem; position: relative; z-index: 2;
+    }
+    .hero-tag {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-tag::before { content: ''; width: 2rem; height: 1px; background: var(--accent); }
+    h1.hero-name {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 0.92;
+      letter-spacing: -0.04em; margin-bottom: 1.5rem;
+    }
+    h1.hero-name .line { display: block; overflow: hidden; }
+    h1.hero-name .line span { display: block; animation: slideUp 0.8s cubic-bezier(0.23,1,0.32,1) both; }
+    h1.hero-name .line:nth-child(2) span { animation-delay: 0.1s; }
+    h1.hero-name .line:nth-child(3) span { animation-delay: 0.2s; color: var(--accent); }
+    @keyframes slideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .hero-desc {
+      font-size: 1rem; color: var(--muted); line-height: 1.7; max-width: 440px;
+      margin-bottom: 2.5rem; animation: fadeIn 1s ease 0.5s both;
+    }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(12px);} to {opacity:1;transform:none;} }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeIn 1s ease 0.7s both; }
+    .btn-primary {
+      background: var(--accent); color: var(--bg); padding: 0.85rem 2rem;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.05em; text-decoration: none; position: relative; overflow: hidden; transition: transform 0.2s;
+    }
+    .btn-primary::after {
+      content:''; position:absolute; inset:0; background: rgba(255,255,255,0.2);
+      transform: translateX(-100%); transition: transform 0.3s;
+    }
+    .btn-primary:hover::after { transform: translateX(0); }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-ghost {
+      border: 1px solid var(--border); color: var(--text); padding: 0.85rem 2rem;
+      font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem;
+      letter-spacing: 0.05em; text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-right { position: relative; display: flex; align-items: center; justify-content: center; }
+    .hero-visual { position: relative; width: 380px; height: 380px; }
+    .hero-avatar-ring {
+      position: absolute; inset: -20px; border: 1px solid rgba(0,229,255,0.2);
+      border-radius: 50%; animation: spin 20s linear infinite;
+    }
+    .hero-avatar-ring::before {
+      content: ''; position: absolute; width: 8px; height: 8px; background: var(--accent);
+      border-radius: 50%; top: 50%; left: -4px; transform: translateY(-50%);
+      box-shadow: 0 0 12px var(--accent);
+    }
+    @keyframes spin { from {transform:rotate(0deg);} to {transform:rotate(360deg);} }
+    .hero-avatar-ring2 {
+      position: absolute; inset: -50px; border: 1px solid rgba(124,58,237,0.15);
+      border-radius: 50%; animation: spin 35s linear infinite reverse;
+    }
+    .hero-avatar-fallback {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent2) 0%, #0ea5e9 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: 5rem; font-weight: 800; color: white;
+      position: relative; z-index: 2; border: 2px solid rgba(0,229,255,0.3);
+    }
+    .floating-badge {
+      position: absolute; background: var(--card); border: 1px solid var(--border);
+      padding: 0.65rem 0.9rem; font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      color: var(--accent); z-index: 3; animation: float 3s ease-in-out infinite; white-space: nowrap;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+    .badge-spfx { top: 40px; right: -80px; animation-delay: 0s; }
+    .badge-ms { bottom: 60px; left: -100px; animation-delay: 1s; }
+    .badge-react { top: 190px; right: -100px; animation-delay: 2s; }
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-169007209-3"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+    /* Section */
+    section { padding: 6rem 3rem; position: relative; }
+    .section-label {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::before { content: ''; width: 2rem; height: 1px; background: var(--accent); }
+    .section-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -0.03em; line-height: 1; margin-bottom: 3rem;
+    }
+
+    /* About */
+    #about { background: var(--surface); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .stat-box { padding: 2rem; background: var(--card); transition: background 0.2s; }
+    .stat-box:hover { background: rgba(0,229,255,0.05); }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
+    .stat-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; }
+    .info-list { list-style: none; margin-top: 2rem; }
+    .info-list li { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); }
+    .info-list li strong { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); min-width: 80px; }
+
+    /* Experience */
+    #experience { background: var(--bg); }
+    .exp-item { display: grid; grid-template-columns: 180px 1fr; gap: 3rem; padding: 2.5rem 0; border-top: 1px solid var(--border); }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+    .exp-meta { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--muted); }
+    .exp-period { color: var(--accent); margin-bottom: 0.5rem; }
+    .exp-content h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .exp-company { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--accent); margin-bottom: 1rem; }
+    .exp-content p { color: var(--muted); line-height: 1.7; font-size: 0.95rem; margin-bottom: 1rem; }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.75rem; border: 1px solid rgba(0,229,255,0.3); color: var(--accent); background: rgba(0,229,255,0.05); }
+    .tag.purple { border-color: rgba(124,58,237,0.4); color: #a78bfa; background: rgba(124,58,237,0.08); }
+    .tag.amber { border-color: rgba(245,158,11,0.4); color: var(--accent3); background: rgba(245,158,11,0.08); }
+
+    /* Skills */
+    #skills { background: var(--surface); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .skill-category { background: var(--card); padding: 2rem; }
+    .skill-category h3 { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem; color: var(--accent); }
+    .skill-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .skill-name { font-size: 0.9rem; color: var(--text); }
+    .skill-bar-wrap { width: 100px; height: 2px; background: var(--border); }
+    .skill-bar { height: 100%; background: var(--accent); width: 0; transition: width 1.5s cubic-bezier(0.23,1,0.32,1); position: relative; }
+    .skill-bar::after { content: ''; position: absolute; right: -2px; top: -3px; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 8px var(--accent); }
+    .skill-bar.purple { background: #7c3aed; }
+    .skill-bar.purple::after { background: #7c3aed; box-shadow: 0 0 8px #7c3aed; }
+    .skill-bar.amber { background: var(--accent3); }
+    .skill-bar.amber::after { background: var(--accent3); box-shadow: 0 0 8px var(--accent3); }
+
+    /* Projects */
+    #projects { background: var(--bg); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .project-card { background: var(--card); padding: 2rem; position: relative; overflow: hidden; transition: background 0.3s; cursor: default; }
+    .project-card:hover { background: #161d30; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
+    .project-card:hover::before { opacity: 1; }
+    .project-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1rem; }
+    .project-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; transition: color 0.2s; }
+    .project-card:hover h3 { color: var(--accent); }
+    .project-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+    .project-link { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.2s; }
+    .project-link:hover { gap: 0.75rem; }
+    .project-type { position: absolute; top: 2rem; right: 2rem; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    /* Education */
+    #education { background: var(--surface); }
+    .edu-timeline { position: relative; padding-left: 2rem; }
+    .edu-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .edu-item { position: relative; padding: 0 0 3rem 2rem; }
+    .edu-item::before { content: ''; position: absolute; left: -4px; top: 6px; width: 9px; height: 9px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent); }
+    .edu-year { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.5rem; }
+    .edu-item h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .edu-item p { color: var(--muted); font-size: 0.9rem; }
+
+    /* Certs */
+    #certifications { background: var(--bg); }
+    .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .cert-card { border: 1px solid var(--border); padding: 2rem; background: var(--card); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .cert-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-4px); }
+    .cert-issuer { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .cert-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .cert-link { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+    .cert-link:hover { color: var(--accent); border-color: var(--accent); }
+    .cert-icon { position: absolute; right: 1.5rem; top: 1.5rem; font-size: 2rem; opacity: 0.1; }
+
+    /* Contact */
+    #contact { background: var(--surface); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .contact-left h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.03em; margin-bottom: 1rem; }
+    .contact-left p { color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: var(--text); padding: 1rem 1.5rem; border: 1px solid var(--border); background: var(--card); transition: border-color 0.2s, background 0.2s; font-size: 0.9rem; }
+    .contact-link:hover { border-color: var(--accent); background: rgba(0,229,255,0.05); }
+    .contact-link-icon { width: 36px; height: 36px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--accent); font-size: 0.9rem; }
+    .contact-link-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .contact-link-value { font-size: 0.85rem; }
+    .contact-right { display: flex; align-items: center; justify-content: center; }
+    .contact-cta-box { border: 1px solid var(--border); padding: 3rem; text-align: center; position: relative; overflow: hidden; width: 100%; }
+    .contact-cta-box::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0,229,255,0.06) 0%, transparent 70%); }
+    .contact-cta-box h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; position: relative; }
+    .contact-cta-box p { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; position: relative; }
+
+    /* Footer */
+    footer { padding: 2rem 3rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg); }
+    footer p { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; color: var(--muted); }
+    .footer-social { display: flex; gap: 1rem; }
+    .footer-social a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-social a:hover { color: var(--accent); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 8rem 1.5rem 3rem; }
+      .hero-right { display: none; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .projects-grid, .skills-grid { grid-template-columns: 1fr 1fr; }
+      .cert-grid { grid-template-columns: 1fr 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links, .nav-cta { display: none; }
+      section { padding: 4rem 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .projects-grid, .skills-grid, .cert-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <a href="#hero" class="nav-logo">SK<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://drive.google.com/file/d/1ACSeNpzstFB64qNhqWH6pXe799-WDB3A/view?usp=drive_link" target="_blank" class="nav-cta">Resume ↗</a>
+</nav>
+
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-left">
+    <div class="hero-tag">Microsoft Developer · Bengaluru, India</div>
+    <h1 class="hero-name">
+      <span class="line"><span>Sam-</span></span>
+      <span class="line"><span>pat</span></span>
+      <span class="line"><span>K.</span></span>
+    </h1>
+    <p class="hero-desc">
+      Building enterprise SharePoint solutions, intelligent Power Automate workflows, and conversational AI with Copilot Studio at Acies Innovations.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hero-avatar-ring2"></div>
+      <div class="hero-avatar-ring"></div>
+      <div class="hero-avatar-fallback">SK</div>
+      <div class="floating-badge badge-spfx">⚡ SPFx Developer</div>
+      <div class="floating-badge badge-ms">☁ Microsoft Stack</div>
+      <div class="floating-badge badge-react">📱 React Native</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-label">Who I am</div>
+  <div class="section-title reveal">About Me</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Passionate Java full-stack developer who evolved into the Microsoft ecosystem — now designing and building enterprise SharePoint Framework solutions, intelligent automation pipelines, and conversational AI at <strong style="color:var(--text)">Acies Innovations</strong>.</p>
+      <p>I thrive at the intersection of clean code and business impact: turning complex enterprise requirements into elegant, scalable digital experiences. Currently expanding into React Native mobile development.</p>
+      <ul class="info-list">
+        <li><strong>Birthday</strong> 22 August 2003</li>
+        <li><strong>Location</strong> Bengaluru, Karnataka, India</li>
+        <li><strong>Email</strong> sampatkarehonna@gmail.com</li>
+        <li><strong>Phone</strong> +91 6363720634</li>
+        <li><strong>Work</strong> Remote · Acies Innovations</li>
+      </ul>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat-box"><div class="stat-num">8+</div><div class="stat-label">Months at Acies</div></div>
+      <div class="stat-box"><div class="stat-num">12+</div><div class="stat-label">Projects Built</div></div>
+      <div class="stat-box"><div class="stat-num">5+</div><div class="stat-label">Enterprise Clients</div></div>
+      <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Tech Domains</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label">Career</div>
+  <div class="section-title reveal">Experience</div>
+
+  <div class="exp-item reveal">
+    <div class="exp-meta">
+      <div class="exp-period">Sep 2025 — Present</div>
+      <div>8 months</div>
+      <div style="margin-top:0.5rem">Remote · Bengaluru</div>
+    </div>
+    <div class="exp-content">
+      <h3>Microsoft Developer</h3>
+      <div class="exp-company">Acies Innovations · Full-time</div>
+      <p>Designing and developing SharePoint Framework (SPFx) solutions for enterprise intranet sites across multiple clients. Building Power Automate workflows and conversational AI chatbots using Copilot Studio to automate business processes and enhance user experiences. Expanding technical capabilities into React Native mobile development.</p>
+      <div class="exp-tags">
+        <span class="tag">SharePoint Framework</span>
+        <span class="tag">SPFx</span>
+        <span class="tag">Power Automate</span>
+        <span class="tag">Copilot Studio</span>
+        <span class="tag">React Native</span>
+        <span class="tag purple">Enterprise Intranet</span>
+        <span class="tag purple">Conversational AI</span>
+        <span class="tag purple">Workflow Automation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-item reveal">
+    <div class="exp-meta">
+      <div class="exp-period">Oct 2024 — Sep 2025</div>
+      <div>~1 year</div>
+      <div style="margin-top:0.5rem">Training</div>
+    </div>
+    <div class="exp-content">
+      <h3>Java Full Stack Developer Trainee</h3>
+      <div class="exp-company">JSpiders · Training Program</div>
+      <p>Developed and tested Java-based applications as part of intensive training projects. Gained hands-on experience with Spring Boot, Hibernate, and RESTful APIs. Enhanced problem-solving skills through DSA practice and system design challenges.</p>
+      <div class="exp-tags">
+        <span class="tag">Java</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag">Hibernate</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">MySQL</span>
+        <span class="tag purple">DSA</span>
+        <span class="tag purple">System Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label">Expertise</div>
+  <div class="section-title reveal">Skills</div>
+  <div class="skills-grid reveal">
+    <div class="skill-category">
+      <h3>Microsoft Stack</h3>
+      <div class="skill-item"><span class="skill-name">SharePoint / SPFx</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="90%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Power Automate</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="85%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Copilot Studio</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="80%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Power Apps</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="70%"></div></div></div>
+    </div>
+    <div class="skill-category">
+      <h3>Languages & Backend</h3>
+      <div class="skill-item"><span class="skill-name">Java</span><div class="skill-bar-wrap"><div class="skill-bar purple" data-width="88%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Spring Boot</span><div class="skill-bar-wrap"><div class="skill-bar purple" data-width="80%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">MySQL / PostgreSQL</span><div class="skill-bar-wrap"><div class="skill-bar purple" data-width="78%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">REST APIs</span><div class="skill-bar-wrap"><div class="skill-bar purple" data-width="82%"></div></div></div>
+    </div>
+    <div class="skill-category">
+      <h3>Frontend & Tools</h3>
+      <div class="skill-item"><span class="skill-name">HTML / CSS</span><div class="skill-bar-wrap"><div class="skill-bar amber" data-width="85%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">React Native</span><div class="skill-bar-wrap"><div class="skill-bar amber" data-width="65%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Git / GitHub</span><div class="skill-bar-wrap"><div class="skill-bar amber" data-width="80%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Bootstrap</span><div class="skill-bar-wrap"><div class="skill-bar amber" data-width="75%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label">Work</div>
+  <div class="section-title reveal">Projects</div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-num">01</div><div class="project-type">Web App</div>
+      <h3>Zomato Clone</h3>
+      <p>Full-featured food delivery platform clone with menu browsing, cart management, and order flows.</p>
+      <div class="exp-tags" style="margin-bottom:1.25rem;"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+      <a href="https://github.com/sampat646/Zomato-Clone" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">02</div><div class="project-type">Landing Page</div>
+      <h3>Samsung S25 Landing Page</h3>
+      <p>Pixel-perfect product landing page for Samsung Galaxy S25 Ultra with animated sections.</p>
+      <div class="exp-tags" style="margin-bottom:1.25rem;"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Animations</span></div>
+      <a href="https://github.com/sampat646/samsung-s25-landing-page" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">03</div><div class="project-type">Java Backend</div>
+      <h3>Online Order Processing</h3>
+      <p>Enterprise-grade order management with Spring Boot REST APIs, Hibernate ORM, and full CRUD operations.</p>
+      <div class="exp-tags" style="margin-bottom:1.25rem;"><span class="tag purple">Java</span><span class="tag purple">Spring Boot</span><span class="tag purple">MySQL</span></div>
+      <a href="https://github.com/sampat646/Online-Order-Processing-System" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">04</div><div class="project-type">Hibernate</div>
+      <h3>Event Management System</h3>
+      <p>Event registration platform leveraging Hibernate ORM with full entity relationships and cascade ops.</p>
+      <div class="exp-tags" style="margin-bottom:1.25rem;"><span class="tag purple">Hibernate</span><span class="tag purple">Java</span><span class="tag purple">PostgreSQL</span></div>
+      <a href="https://github.com/sampat646/HIBERNATE_EVENTMANAGEMENTS" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">05</div><div class="project-type">AI Integration</div>
+      <h3>Gemini AI Chat</h3>
+      <p>Conversational AI chat interface integrating Google Gemini API for natural language responses.</p>
+      <div class="exp-tags" style="margin-bottom:1.25rem;"><span class="tag">Gemini API</span><span class="tag">JavaScript</span></div>
+      <a href="https://github.com/sampat646/-Gemini-AI-Chat-Project" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">06</div><div class="project-type">Dashboard</div>
+      <h3>IPL Dashboard</h3>
+      <p>Real-time IPL cricket dashboard with standings, match scores, and player statistics visualization.</p>
+      <div class="exp-tags" style="margin-bottom:1.25rem;"><span class="tag amber">Java</span><span class="tag amber">Spring Boot</span><span class="tag amber">REST</span></div>
+      <a href="https://github.com/sampat646/IPL-DASHBOARD" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">07</div><div class="project-type">Weather</div>
+      <h3>Weather App</h3>
+      <p>Real-time weather application fetching live data from public APIs with dynamic UI updates.</p>
+      <div class="exp-tags" style="margin-bottom:1.25rem;"><span class="tag">JS</span><span class="tag">API</span><span class="tag">CSS</span></div>
+      <a href="https://github.com/sampat646/Weather-app" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">08</div><div class="project-type">Inventory</div>
+      <h3>Inventory Management</h3>
+      <p>Complete inventory tracking solution with stock management, reporting, and Spring Boot backend.</p>
+      <div class="exp-tags" style="margin-bottom:1.25rem;"><span class="tag purple">Spring Boot</span><span class="tag purple">MySQL</span></div>
+      <a href="https://github.com/sampat646/Inventory-Management-System" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">09</div><div class="project-type">Quiz Platform</div>
+      <h3>Quiz App</h3>
+      <p>Interactive quiz platform with timed questions, scoring system, leaderboards, and category filtering.</p>
+      <div class="exp-tags" style="margin-bottom:1.25rem;"><span class="tag">Java</span><span class="tag">Spring Boot</span></div>
+      <a href="https://github.com/sampat646/QuizApp" target="_blank" class="project-link">GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-label">Background</div>
+  <div class="section-title reveal">Education</div>
+  <div class="edu-timeline">
+    <div class="edu-item reveal">
+      <div class="edu-year">2021 — 2024</div>
+      <h3>BCA — Bachelor of Computer Applications</h3>
+      <p>Jain College of BBA, BCA, BCom · Belagavi</p>
+    </div>
+    <div class="edu-item reveal">
+      <div class="edu-year">2019 — 2021</div>
+      <h3>PUC — Pre-University (Science)</h3>
+      <p>Sai Niketan PU Science College · Mudhol</p>
+    </div>
+    <div class="edu-item reveal">
+      <div class="edu-year">Completed 2018</div>
+      <h3>SSLC — Secondary School</h3>
+      <p>Sai Niketan Kannada Medium High School · Mudhol</p>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <div class="section-title reveal">Certifications</div>
+  <div class="cert-grid">
+    <div class="cert-card reveal">
+      <div class="cert-icon">☕</div>
+      <div class="cert-issuer">HackerRank</div>
+      <h3>Java Programming Certificate</h3>
+      <a href="#" class="cert-link">View Certificate ↗</a>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon">🗄️</div>
+      <div class="cert-issuer">HackerRank</div>
+      <h3>SQL Proficiency Certificate</h3>
+      <a href="#" class="cert-link">View Certificate ↗</a>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon">🤖</div>
+      <div class="cert-issuer">IBM</div>
+      <h3>AI Engineering Professional Certificate</h3>
+      <a href="#" class="cert-link">View Certificate ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Get in Touch</div>
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <h2>Let's build something <span style="color:var(--accent)">together.</span></h2>
+      <p>Open to enterprise Microsoft projects, Java backend roles, and collaborations. Reach out anytime.</p>
+      <div class="contact-links">
+        <a href="mailto:sampatkarehonna@gmail.com" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          <div><div class="contact-link-label">Email</div><div class="contact-link-value">sampatkarehonna@gmail.com</div></div>
+        </a>
+        <a href="https://www.linkedin.com/in/sampat-karehonna-3a150722b" target="_blank" class="contact-link">
+          <div class="contact-link-icon">in</div>
+          <div><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">sampat-karehonna-3a150722b</div></div>
+        </a>
+        <a href="https://www.github.com/sampat646" target="_blank" class="contact-link">
+          <div class="contact-link-icon">⌥</div>
+          <div><div class="contact-link-label">GitHub</div><div class="contact-link-value">github.com/sampat646</div></div>
+        </a>
+        <a href="tel:+916363720634" class="contact-link">
+          <div class="contact-link-icon">☎</div>
+          <div><div class="contact-link-label">Phone</div><div class="contact-link-value">+91 6363720634</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right reveal">
+      <div class="contact-cta-box">
+        <h3>Download Resume</h3>
+        <p>Full work history, skills, and project details in one document.</p>
+        <a href="https://drive.google.com/file/d/1ACSeNpzstFB64qNhqWH6pXe799-WDB3A/view?usp=drive_link" target="_blank" class="btn-primary">Download CV ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Sampat Karehonna · Microsoft Developer · Bengaluru</p>
+  <div class="footer-social">
+    <a href="https://www.linkedin.com/in/sampat-karehonna-3a150722b" target="_blank">LinkedIn</a>
+    <a href="https://www.github.com/sampat646" target="_blank">GitHub</a>
+    <a href="mailto:sampatkarehonna@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+  });
+  (function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+    requestAnimationFrame(animRing);
+  })();
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Skill bars
+  const skillObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar').forEach(bar => {
+          const w = bar.dataset.width;
+          setTimeout(() => { bar.style.width = w; }, 200);
+        });
+        skillObs.unobserve(e.target);
       }
-      gtag("js", new Date());
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skill-category').forEach(el => skillObs.observe(el));
 
-      gtag("config", "UA-169007209-3");
-    </script>
-
-    <!-- =======================================================
-  * Template Name: Personal - v2.1.0
-  * Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-  </head>
-
-  <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-5BB8W2X"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <!-- ======= Header ======= -->
-    <header id="header" class="header-tops">
-      <div class="container">
-        <h1><a href="index.html">Sampat K</a></h1>
-        <h2 style="color: #fff">
-          I'm <span class="typing" style="color: #12d640"></span>
-        </h2>
-        <nav class="nav-menu d-none d-lg-block">
-          <ul>
-            <li class="active">
-              <a href="#header"> <span>Home</span></a>
-            </li>
-            <li>
-              <a href="#about"><span>About</span></a>
-            </li>
-            <li>
-              <a href="#education"> <span>Education</span></a>
-            </li>
-            <li>
-              <a href="#experience"> <span>Experience</span></a>
-            </li>
-            <!--          <li><a href="#projects"> <span>Projects</span></a></li>-->
-            <li>
-              <a href="#portfolio"> <span>Projects</span></a>
-            </li>
-            <li>
-              <a href="#skills"> <span>Skills</span></a>
-            </li>
-            <li>
-              <a
-                href="https://drive.google.com/file/d/1ACSeNpzstFB64qNhqWH6pXe799-WDB3A/view?usp=drive_link"
-                target="_blank"
-              >
-                <span>Resume</span></a
-              >
-            </li>
-            <!-- <li><a href="#links"> <span>Resume & Links</span></a></li> -->
-            <li>
-              <a href="#contacts"> <span>Contact</span></a>
-            </li>
-          </ul>
-        </nav>
-        <!-- .nav-menu -->
-
-        <div class="social-links">
-          <a
-            href="https://www.linkedin.com/in/sampat-karehonna-3a150722b"
-            target="_blank"
-            class="linkedin"
-            ><i class="bx bxl-linkedin"></i
-          ></a>
-          <a
-            href="https://www.github.com/sampat646"
-            target="_blank"
-            class="github"
-            ><i class="bx bxl-github"></i
-          ></a>
-          <a href="mailto:sampatkarehonna@gmail.com" target="_blank" class="google"
-            ><i class="bx bxl-google"></i
-          ></a>
-        </div>
-      </div>
-    </header>
-    <!-- End Header -->
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <!-- ======= About Me ======= -->
-      <div class="about-me container">
-        <div class="section-title">
-          <h2>About</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4" data-aos="fade-right">
-            <img src="assets/img/WhatsApp Image 2025-03-27 at 15.36.45_bdf466b1.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-            <p>
-              Passionate and dedicated Java full-stack developer with a strong
-              foundation in data structures, algorithms, and software
-              development. I have a keen interest in solving real-world problems
-              through coding and constantly improving my skills in Java, Spring
-              Boot, SQL, and front-end technologies.
-            </p>
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li>
-                    <i class="icofont-rounded-right"></i>
-                    <strong>Birthday:</strong> 22 August 2003
-                  </li>
-                  <li>
-                    <i class="icofont-rounded-right"></i>
-                    <strong>Phone:</strong> +91 6363720634
-                  </li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <li>
-                    <i class="icofont-rounded-right"></i>
-                    <strong>City:</strong> India
-                  </li>
-                  <li>
-                    <i class="icofont-rounded-right"></i>
-                    <strong>Email:</strong> sampatkarehonna@gmail.com
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End About Me -->
-
-      <!-- ======= Interests ======= -->
-      <div class="interests container">
-        <div class="section-title">
-          <h2>Interests</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-3 col-md-4">
-            <div class="icon-box">
-              <i class="ri-global-line" style="color: #ffbb2c"></i>
-              <h3>Full-Stack Development</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-            <div class="icon-box">
-              <i class="ri-database-2-line" style="color: #5578ff"></i>
-              <h3>Data Structures & Algorithms</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-            <div class="icon-box">
-              <i class="ri-code-s-slash-fill" style="color: #e80368"></i>
-              <h3>Backend Development</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="ri-english-input" style="color: #1c7d32"></i>
-              <h3>Problem Solving</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-bar-chart-box-line" style="color: #28a745"></i>
-              <h3>Database Management</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-file-list-3-line" style="color: #f1081f"></i>
-              <h3>System Design</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-image-line" style="color: #47aeff"></i>
-              <h3>Web Technologies</h3>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 mt-4">
-            <div class="icon-box">
-              <i class="ri-settings-3-line" style="color: #ffc107"></i>
-              <h3>Cloud Computing</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End Interests -->
-    </section>
-    <!-- End About Section -->
-
-    <!-- ======= Education Section ======= -->
-    <section id="education" class="services">
-      <div class="container">
-        <div class="section-title">
-          <h2>Education</h2>
-        </div>
-        <div class="row">
-          <div
-            class="col-lg-12"
-            data-aos="fade-up"
-            style="display: inline-block"
-          >
-            <!-- BCA - Jain College -->
-            <div
-              class="col-md-4 mt-4 mt-md-0 icon-box"
-              data-aos="fade-up"
-              data-aos-delay="100"
-              style="
-                padding: 0px 0px;
-                padding-bottom: 5px;
-                display: inline-block;
-              "
-            >
-              <img
-                src="assets/img/education/jain college.jpg"
-                class="img-fluid"
-                alt="Jain College"
-                style="max-width: 100%; height: auto; border-radius: 10px"
-              />
-              <p style="text-align: left; color: #fff; padding: 5px 10px">
-                <em
-                  >BCA - Jain College of BBA, BCA, BCom, Commerce, Belagavi</em
-                >
-              </p>
-              <h5 style="text-align: left; padding: 0px 10px">
-                Year of Completion: 2024
-              </h5>
-            </div>
-
-            <!-- PUC - Sai Niketan PU Science College -->
-            <div
-              class="col-md-4 mt-4 mt-md-0 icon-box"
-              data-aos="fade-up"
-              data-aos-delay="100"
-              style="
-                padding: 0px 0px;
-                padding-bottom: 5px;
-                display: inline-block;
-              "
-            >
-              <img
-                src="assets/img/education/sn.jpeg"
-                class="img-fluid"
-                alt="Sai Niketan"
-                style="max-width: 100%; height: auto; border-radius: 10px"
-              />
-              <p style="text-align: left; color: #fff; padding: 5px 10px">
-                <em>PUC - Sai Niketan PU Science College, Mudhol</em>
-              </p>
-              <h5 style="text-align: left; padding: 0px 10px">
-                Year of Completion: 2021
-              </h5>
-            </div>
-
-            <!-- SSLC - Sai Niketan Kannada Medium High School -->
-            <div
-              class="col-md-4 mt-4 mt-md-0 icon-box"
-              data-aos="fade-up"
-              data-aos-delay="100"
-              style="
-                padding: 0px 0px;
-                padding-bottom: 5px;
-                display: inline-block;
-              "
-            >
-              <img
-                src="assets/img/education/sn.jpeg"
-                class="img-fluid"
-                alt="Sai Niketan School"
-                style="max-width: 100%; height: auto; border-radius: 10px"
-              />
-              <p style="text-align: left; color: #fff; padding: 5px 10px">
-                <em>SSLC - Sai Niketan Kannada Medium High School, Mudhol</em>
-              </p>
-              <h5 style="text-align: left; padding: 0px 10px">
-                Year of Completion: 2018
-              </h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="certifications" class="portfolio">
-      <div class="container">
-        <div class="section-title">
-          <h2>Online Certification</h2>
-        </div>
-
-        <div
-          class="row portfolio-container"
-          style="position: relative; height: auto"
-        >
-          <!-- HackerRank Java Certificate -->
-          <div class="col-lg-4 col-md-6 portfolio-item filter-cert">
-            <div
-              class="portfolio-wrap"
-              style="
-                background: #1a1a1a;
-                border-radius: 10px;
-                padding: 15px;
-                text-align: center;
-              "
-            >
-              <img
-                src="https://hrcdn.net/fcore/assets/brand/HackerRank_logo.png"
-                class="img-fluid"
-                alt="HackerRank Java Certificate"
-                style="max-width: 100%; height: auto; border-radius: 10px"
-              />
-              <div class="portfolio-info">
-                <h4 style="color: white">HackerRank Java Certificate</h4>
-                <div class="portfolio-links">
-                  <a
-                    href="YOUR_HACKERRANK_JAVA_CERTIFICATE_LINK"
-                    target="_blank"
-                    title="Certificate"
-                    style="
-                      display: inline-block;
-                      background: #ffcc00;
-                      padding: 10px 15px;
-                      border-radius: 5px;
-                      color: black;
-                      text-decoration: none;
-                    "
-                  >
-                    <i class="bx bx-link"></i> View
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- HackerRank SQL Certificate -->
-          <div class="col-lg-4 col-md-6 portfolio-item filter-cert">
-            <div
-              class="portfolio-wrap"
-              style="
-                background: #1a1a1a;
-                border-radius: 10px;
-                padding: 15px;
-                text-align: center;
-              "
-            >
-              <img
-                src="https://hrcdn.net/fcore/assets/brand/HackerRank_logo.png"
-                class="img-fluid"
-                alt="HackerRank SQL Certificate"
-                style="max-width: 100%; height: auto; border-radius: 10px"
-              />
-              <div class="portfolio-info">
-                <h4 style="color: white">HackerRank SQL Certificate</h4>
-                <div class="portfolio-links">
-                  <a
-                    href="YOUR_HACKERRANK_SQL_CERTIFICATE_LINK"
-                    target="_blank"
-                    title="Certificate"
-                    style="
-                      display: inline-block;
-                      background: #ffcc00;
-                      padding: 10px 15px;
-                      border-radius: 5px;
-                      color: black;
-                      text-decoration: none;
-                    "
-                  >
-                    <i class="bx bx-link"></i> View
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- IBM AI Engineering Certificate -->
-          <div class="col-lg-4 col-md-6 portfolio-item filter-cert">
-            <div
-              class="portfolio-wrap"
-              style="
-                background: #1a1a1a;
-                border-radius: 10px;
-                padding: 15px;
-                text-align: center;
-              "
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
-                class="img-fluid"
-                alt="IBM Certificate"
-                style="max-width: 100%; height: auto; border-radius: 10px"
-              />
-              <div class="portfolio-info">
-                <h4 style="color: white">IBM AI Engineering Certificate</h4>
-                <div class="portfolio-links">
-                  <a
-                    href="YOUR_IBM_CERTIFICATE_LINK"
-                    target="_blank"
-                    title="Certificate"
-                    style="
-                      display: inline-block;
-                      background: #ffcc00;
-                      padding: 10px 15px;
-                      border-radius: 5px;
-                      color: black;
-                      text-decoration: none;
-                    "
-                  >
-                    <i class="bx bx-link"></i> View
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- End Education Section -->
-
-    <!-- Start Experience Section -->
-    <section id="experience" class="services">
-      <div class="container">
-        <div class="section-title">
-          <h2>Experience</h2>
-        </div>
-        <div class="row">
-          <div class="col-lg-12" data-aos="fade-up">
-            <div
-              class="col-md-12 mt-4 mt-md-0 icon-box"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <h4 style="text-align: left">
-                <a href="https://www.jspiders.com/" style="color: #12d640"
-                  >JSpiders</a
-                ><br />
-              </h4>
-              <h5 style="text-align: left">October 2024 - Present</h5>
-              <p style="text-align: left; color: #fff">
-                <em>Java Full Stack Developer Trainee</em>
-              </p>
-              <ul style="text-align: left">
-                <li>
-                  Developed and tested Java-based applications as part of
-                  training projects.
-                </li>
-                <li>
-                  Gained hands-on experience with Spring Boot, Hibernate, and
-                  RESTful APIs.
-                </li>
-                <li>
-                  Still learning real-world full-stack development concepts.
-                </li>
-                <li>
-                  Continuing to enhance problem-solving skills by practicing DSA
-                  and system design.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- End Experience Section -->
-
-    <!-- Start Project Section -->
-    <section id="portfolio" class="portfolio">
-      <div class="container">
-        <div class="section-title">
-          <h2>Projects</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">Web-App</li>
-              <li data-filter=".filter-project">Project</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="row portfolio-container">
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <center><h4>Zomato Clone</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/zomato.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/Zomato-Clone"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <center><h4>Samsung S25 Landing Page</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/samsung s25 ultra.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/samsung-s25-landing-page"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>Chai Tapri</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/Chai project.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/Chai-tapri"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>Weather app</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/weather app.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/Weather-app"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>Online Order Processing System</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/online order.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/Online-Order-Processing-System"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>Hibernate Event Management</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/event managment.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/HIBERNATE_EVENTMANAGEMENTS"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>Car Dashboard</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/car dashboard.webp"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/Car-DashBoard"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>IPL Dashboard</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/ipl dashboard.png"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/IPL-DASHBOARD"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>Inventory Management System</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/inventory-management.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/Inventory-Management-System"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>Blog Website</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/blogging.png"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/Blog_website"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>Quiz App</h4></center>
-            <div class="portfolio-wrap">
-              <img src="assets/img/project/quiz.png" class="img-fluid" alt="" />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a href="https://github.com/sampat646/QuizApp" target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-            <center><h4>Gemini AI Chat Project</h4></center>
-            <div class="portfolio-wrap">
-              <img
-                src="assets/img/project/Generative-AI.webp"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <div class="portfolio-links">
-                  <a
-                    href="https://github.com/sampat646/-Gemini-AI-Chat-Project"
-                    target="_blank"
-                    ><i class="bx bx-link-external"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- End Project Section -->
-
-    <!-- Start Skills Section -->
-
-    <section id="skills" class="services">
-      <div class="container">
-        <div class="section-title">
-          <h2>Skills</h2>
-        </div>
-        <div class="row">
-          <div class="col-lg-12" data-aos="fade-up">
-            <div
-              class="col-md-12 mt-4 mt-md-0 icon-box"
-              data-aos="fade-up"
-              data-aos-delay="100"
-              style="background: #fff"
-            >
-              <h4 style="text-align: left; color: #09203a">
-                Languages and Databases
-              </h4>
-              <p style="text-align: left">
-                <img
-                  src="https://www.vectorlogo.zone/logos/java/java-horizontal.svg"
-                  alt="Java"
-                  height="50"
-                  width="120"
-                />
-                <img
-                  src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-ar21.svg"
-                  alt="HTML"
-                />
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg"
-                  alt="CSS"
-                  height="60"
-                  width="90"
-                />
-                <img
-                  src="https://www.vectorlogo.zone/logos/mysql/mysql-horizontal.svg"
-                  alt="MySQL"
-                  height="70"
-                  width="130"
-                />
-                <img
-                  src="https://www.vectorlogo.zone/logos/postgresql/postgresql-horizontal.svg"
-                  alt="PostgreSQL"
-                  height="50"
-                  width="190"
-                />
-              </p>
-            </div>
-            <div
-              class="col-md-12 mt-4 mt-md-0 icon-box"
-              data-aos="fade-up"
-              data-aos-delay="100"
-              style="background: #fff"
-            >
-              <h4 style="text-align: left; color: #09203a">Frameworks</h4>
-              <p style="text-align: left">
-                <img
-                  src="https://www.vectorlogo.zone/logos/springio/springio-ar21.svg"
-                  alt="Spring Boot"
-                />
-                <img
-                  src="https://www.vectorlogo.zone/logos/getbootstrap/getbootstrap-ar21.svg"
-                  alt="Bootstrap"
-                />
-              </p>
-            </div>
-            <div
-              class="col-md-12 mt-4 mt-md-0 icon-box"
-              data-aos="fade-up"
-              data-aos-delay="100"
-              style="background: #fff"
-            >
-              <h4 style="text-align: left; color: #09203a">Tools</h4>
-              <p style="text-align: left">
-                <img
-                  src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg"
-                  alt="Git"
-                />
-                <img
-                  src="https://www.vectorlogo.zone/logos/github/github-ar21.svg"
-                  alt="GitHub"
-                />
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- End Skills Section -->
-
-    <!-- Start Links section -->
-    <section id="links" class="services">
-      <div class="container">
-        <div class="section-title">
-          <h2>Resume & Links</h2>
-        </div>
-        <div class="row">
-          <div
-            class="col-md-3 mt-4 mt-md-0 icon-box"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <a
-              href="https://drive.google.com/file/d/1ACSeNpzstFB64qNhqWH6pXe799-WDB3A/view?usp=drive_link"
-              target="_blank"
-              ><div class="icon"><i class="icofont-page"></i></div
-            ></a>
-            <h4 class="title">
-              <a
-                href="https://drive.google.com/file/d/1ACSeNpzstFB64qNhqWH6pXe799-WDB3A/view?usp=drive_link"
-                target="_blank"
-                >Resume</a
-              >
-            </h4>
-            <p class="description" style="color: #fff">
-              The link contains downloadable resume
-            </p>
-          </div>
-          <div class="col-md-3 mt-4 mt-md-0 icon-box" data-aos="fade-up">
-            <a
-              href="https://github.com/rajaprerak/LeetCode_Problems"
-              target="_blank"
-              ><div class="icon"><i class="icofont-link"></i></div
-            ></a>
-            <h4 class="title">
-              <a
-                href="https://github.com/rajaprerak/LeetCode_Problems"
-                target="_blank"
-                >LeetCode Repository</a
-              >
-            </h4>
-            <p class="description" style="color: #fff">
-              The github repository contains leetcode problems solution in
-              python.
-            </p>
-          </div>
-          <!-- <div class="col-md-3 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://techingenious.herokuapp.com/" target="_blank"><div class="icon"><i class="icofont-page"></i></div></a>
-          <h4 class="title"><a href="https://techingenious.herokuapp.com/" target="_blank">Blog</a></h4>
-          <p class="description" style="color:#fff;">Blog containing articles on AI, coding, development</p>
-        </div> -->
-        </div>
-      </div>
-    </section>
-    <!--End Links Section -->
-
-    <!-- Start Contact Section -->
-
-    <section id="contacts" class="contact">
-      <div class="container">
-        <div class="section-title">
-          <h2>Contact</h2>
-        </div>
-
-        <div class="row mt-2">
-          <div class="col-md-6 d-flex align-items-stretch">
-            <div class="info-box">
-              <i class="bx bx-map"></i>
-              <h3>My Address</h3>
-              <p>Near Kalmeshwar temple Mudhol</p>
-              <p>Tq Mudhol</p>
-              <p>Dist, Bagalkot Karnatak</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 mt-4 mt-md-0 d-flex align-items-stretch">
-            <div class="info-box">
-              <i class="bx bx-share-alt"></i>
-              <h3>Social Profiles</h3>
-              <div class="social-links">
-                <a
-                  href="https://www.linkedin.com/in/sampat-karehonna-3a150722b"
-                  target="_blank"
-                  class="linkedin"
-                  ><i class="bx bxl-linkedin"></i
-                ></a>
-                <a
-                  href=" https://github.com/sampat646"
-                  target="_blank"
-                  class="github"
-                  ><i class="bx bxl-github"></i
-                ></a>
-                <a
-                  href="mailto:sampatkarehonna@gmail.com"
-                  target="_blank"
-                  class="google"
-                  ><i class="bx bxl-google"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 mt-4 d-flex align-items-stretch">
-            <div class="info-box">
-              <i class="bx bx-envelope"></i>
-              <h3>Email</h3>
-              <p>sampatkarehonna@gmail.com</p>
-              <!-- <p>pkraja@asu.edu</p> -->
-            </div>
-          </div>
-          <div class="col-md-6 mt-4 d-flex align-items-stretch">
-            <div class="info-box">
-              <i class="bx bx-phone-call"></i>
-              <h3>Contact</h3>
-              <p>+91 6363726064</p>
-            </div>
-          </div>
-        </div>
-        <!-- <div id="sfczmlqxr5caww28rswrt8849ghbekgnh3j" ></div><script type="text/javascript" src="https://counter1.stat.ovh/private/counter.js?c=zmlqxr5caww28rswrt8849ghbekgnh3j&down=async" async></script><noscript><a href="https://www.freecounterstat.com" title="free web counter"><img src="https://counter1.stat.ovh/private/freecounterstat.php?c=zmlqxr5caww28rswrt8849ghbekgnh3j" border="0" title="free web counter" alt="free web counter" style="visibility: none;"></a></noscript> -->
-      </div>
-    </section>
-
-    <!-- End Contact Section -->
-
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-    <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-    <script src="assets/vendor/counterup/counterup.min.js"></script>
-    <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/venobox/venobox.min.js"></script>
-    <script src="assets/vendor/typed.js/typed.min.js"></script>
-    <script type="text/javascript">
-      var typed = new Typed(".typing", {
-        strings: ["Coder", "Developer"],
-        loop: true,
-        typeSpeed: 65,
-        backSpeed: 65,
-      });
-    </script>
-
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-  </body>
+  // Nav active
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === `#${cur}` ? 'var(--accent)' : ''; });
+  });
+</script>
+</body>
 </html>
